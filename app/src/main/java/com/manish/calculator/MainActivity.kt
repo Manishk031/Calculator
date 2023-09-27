@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
        tvInput?.append((view as Button).text)
         lastNumeric = true
         lastDot = false
+
     }
 
     fun onClear(view:View)
@@ -51,8 +52,93 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
+        fun onEqual(view: View)
+        {
+            if(lastNumeric)
+            {
 
+                var tvValue = tvInput?.text.toString()
+                var prefix = ""
+                try {
+
+                    if(tvValue.startsWith("-"))
+                    {
+                        prefix = "-"
+                        tvValue = tvValue.substring(1) // -99 // 99
+                    }
+                    if(tvValue.contains("-"))
+                    {
+                        val spliterator = tvValue.split( "-")
+                        var one = spliterator[0] //23
+                        var two = spliterator[1] //2
+
+                        if(prefix.isNotEmpty()){
+                            one = prefix + one
+                        }
+
+
+                        // var result
+                        tvInput?.text = removeZeroAfterDot((one.toDouble()-two.toDouble()).toString())
+                    }
+                    else if(tvValue.contains("+"))
+                    {
+                        val spliterator = tvValue.split( "+")
+                        var one = spliterator[0] //23
+                        var two = spliterator[1] //2
+
+                        if(prefix.isNotEmpty()){
+                            one = prefix + one
+                        }
+
+
+                        // var result
+                        tvInput?.text =removeZeroAfterDot((one.toDouble()+two.toDouble()).toString())
+                    }
+                    else if(tvValue.contains("/"))
+                    {
+                        val spliterator = tvValue.split( "/")
+                        var one = spliterator[0] //23
+                        var two = spliterator[1] //2
+
+                        if(prefix.isNotEmpty()){
+                            one = prefix + one
+                        }
+
+
+                        // var result
+                        tvInput?.text =removeZeroAfterDot ((one.toDouble()/two.toDouble()).toString())
+                    }
+                    else if(tvValue.contains("*"))
+                    {
+                        val spliterator = tvValue.split( "*")
+                        var one = spliterator[0] //23
+                        var two = spliterator[1] //2
+
+                        if(prefix.isNotEmpty()){
+                            one = prefix + one
+                        }
+
+
+                        // var result
+                        tvInput?.text = removeZeroAfterDot((one.toDouble()*two.toDouble()).toString())
+                    }
+
+
+
+                }
+                catch (e:ArithmeticException){
+                    e.printStackTrace()
+            }
+            }
+        }
+
+    }
+    private fun removeZeroAfterDot(result:String):String{
+         var value =result
+        if(result.contains("0"))
+            value =result.substring(0,result.length-2)
+        return value
+    }
     private fun isOperatorAdded(value:String): Boolean{
         return if(value.startsWith("-")) {
             false
