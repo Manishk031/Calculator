@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
        tvInput?.append((view as Button).text)
         lastNumeric = true
         lastDot = false
-
     }
 
     fun onClear(view:View)
@@ -37,20 +36,20 @@ class MainActivity : AppCompatActivity() {
     fun onDecimalPoint(view: View)
     {
        if(lastNumeric && !lastDot)
-       {
-           tvInput?.append(".")
+       {        tvInput?.append(".")
            lastNumeric = false
            lastDot = true
        }
     }
-    fun onOperator(view: View){
+    fun onOperator(view: View) {
         tvInput?.text?.let {
-            if(lastNumeric && !isOperatorAdded(it.toString())){
+            if (lastNumeric && !isOperatorAdded(it.toString())) {
                 tvInput?.append((view as Button).text)
-                lastNumeric =false
+                lastNumeric = false
                 lastDot = false
             }
         }
+    }
 
         fun onEqual(view: View)
         {
@@ -64,13 +63,13 @@ class MainActivity : AppCompatActivity() {
                     if(tvValue.startsWith("-"))
                     {
                         prefix = "-"
-                        tvValue = tvValue.substring(1) // -99 // 99
+                        tvValue = tvValue.substring(1)
                     }
                     if(tvValue.contains("-"))
                     {
-                        val spliterator = tvValue.split( "-")
-                        var one = spliterator[0] //23
-                        var two = spliterator[1] //2
+                        val splitValue = tvValue.split( "-")
+                        var one = splitValue[0] //23
+                        var two = splitValue[1] //2
 
                         if(prefix.isNotEmpty()){
                             one = prefix + one
@@ -80,11 +79,16 @@ class MainActivity : AppCompatActivity() {
                         // var result
                         tvInput?.text = removeZeroAfterDot((one.toDouble()-two.toDouble()).toString())
                     }
+
+
+
+
+
                     else if(tvValue.contains("+"))
                     {
-                        val spliterator = tvValue.split( "+")
-                        var one = spliterator[0] //23
-                        var two = spliterator[1] //2
+                        val splitValue = tvValue.split( "+")
+                        var one = splitValue[0] //23
+                        var two = splitValue[1] //2
 
                         if(prefix.isNotEmpty()){
                             one = prefix + one
@@ -94,11 +98,14 @@ class MainActivity : AppCompatActivity() {
                         // var result
                         tvInput?.text =removeZeroAfterDot((one.toDouble()+two.toDouble()).toString())
                     }
+
+
+
                     else if(tvValue.contains("/"))
                     {
-                        val spliterator = tvValue.split( "/")
-                        var one = spliterator[0] //23
-                        var two = spliterator[1] //2
+                        val splitValue = tvValue.split( "/")
+                        var one = splitValue[0] //23
+                        var two = splitValue[1] //2
 
                         if(prefix.isNotEmpty()){
                             one = prefix + one
@@ -108,11 +115,14 @@ class MainActivity : AppCompatActivity() {
                         // var result
                         tvInput?.text =removeZeroAfterDot ((one.toDouble()/two.toDouble()).toString())
                     }
+
+
+
                     else if(tvValue.contains("*"))
                     {
-                        val spliterator = tvValue.split( "*")
-                        var one = spliterator[0] //23
-                        var two = spliterator[1] //2
+                        val splitValue = tvValue.split( "*")
+                        var one = splitValue[0] //23
+                        var two = splitValue[1] //2
 
                         if(prefix.isNotEmpty()){
                             one = prefix + one
@@ -132,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
+
     private fun removeZeroAfterDot(result:String):String{
          var value =result
         if(result.contains("0"))
